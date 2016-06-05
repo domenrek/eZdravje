@@ -304,7 +304,7 @@ function prikaziVreme() {
 		dataType: "jsonp", 
 		success: function (parsed_json){ 
 		var currentCondIcon = parsed_json['current_observation']['icon']; 
-		$('#vreme').append('<img src="http://icons.wxug.com/i/c/k/partlycloudy.gif" height="75" width="75"/>'); 
+		$('#vreme').append('<img src="http://icons.wxug.com/i/c/k/'+currentCondIcon+'.gif" height="75" width="75"/>'); 
 		} 
 	}); 
 	
