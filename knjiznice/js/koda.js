@@ -173,7 +173,7 @@ function prikaziMeritve() {
 
 	
 	var ehrId = $('#izbiraMoznosti').val();
-	$("#podatkii").append("ehrId: "+ehrId+"<br>");
+	$("#podatkii").html("ehrId: "+ehrId+"<br>");
 	gEhrId = ehrId;
 
 	var searchData = [
@@ -188,7 +188,7 @@ $.ajax({
         
         for (var i in res.parties) {
             var party = res.parties[i];
-            $("#podatkii").append("<br><b>Ime in priimek: "+party.firstNames + ' ' + party.lastNames + "<b><br>");
+            $("#podatkiii").html("<b>Ime in priimek: "+party.firstNames + ' ' + party.lastNames + "<b><br>");
         }
     }
 });
@@ -292,28 +292,26 @@ function drawChart() {
 
 
 function prikaziVreme() {
-
- 
-$.ajax({
-  url : "http://api.wunderground.com/api/31929bfc29ee9b4a/geolookup/conditions/q/SI/Ljubljana.json",
-  dataType : "jsonp",
-  success : function(parsed_json) {
-  var location = parsed_json['location']['city'];
-  var temp_c = parsed_json['current_observation']['temp_c'];
-  //alert("Current temperature in " + location + " is: " + temp_c);
-  $('#vreme').append(" "+temp_c+" °C ");
-  }
-  });
-
-$.ajax({ 
-	url: "http://api.wunderground.com/api/31929bfc29ee9b4a/geolookup/conditions/q/SI/Ljubljana.json", 
-	dataType: "jsonp", 
-	success: function (parsed_json){ 
-	var currentCondIcon = parsed_json['current_observation']['icon']; 
-	$('#vreme').append('<img src="http://icons.wxug.com/i/c/k/partlycloudy.gif" height="75" width="75"/>'); 
-	} 
-}); 
-
-	//$('#vreme').append("<Trenutne razmere img src='http://icons.wxug.com/i/c/k/partlycloudy.gif'>");
-
+	$('#vreme').html("");
+	 
+	$.ajax({
+	  url : "http://api.wunderground.com/api/31929bfc29ee9b4a/geolookup/conditions/q/SI/Ljubljana.json",
+	  dataType : "jsonp",
+	  success : function(parsed_json) {
+	  var location = parsed_json['location']['city'];
+	  var temp_c = parsed_json['current_observation']['temp_c'];
+	  //alert("Current temperature in " + location + " is: " + temp_c);
+	  $('#vreme').append(" "+temp_c+" °C ");
+	  }
+	  });
+	
+	$.ajax({ 
+		url: "http://api.wunderground.com/api/31929bfc29ee9b4a/geolookup/conditions/q/SI/Ljubljana.json", 
+		dataType: "jsonp", 
+		success: function (parsed_json){ 
+		var currentCondIcon = parsed_json['current_observation']['icon']; 
+		$('#vreme').append('<img src="http://icons.wxug.com/i/c/k/partlycloudy.gif" height="75" width="75"/>'); 
+		} 
+	}); 
+	
 }
