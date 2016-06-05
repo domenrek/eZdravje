@@ -19,8 +19,7 @@ function getSessionId() {
                 "&password=" + encodeURIComponent(password),
         async: false
     });
-   // $("#podatkii").html("toj to "+response.responseJSON.sessionId);
-   
+
    return response.responseJSON.sessionId;
 }
 
@@ -154,7 +153,7 @@ function dodajMeritveVitalnihZnakov() {
 		    error: function(err) {
 		    	$("#dodajMeritveVitalnihZnakovSporocilo").html(
             "<span class='obvestilo label label-danger fade-in'>Napaka '" +
-            JSON.parse(err.responseText).userMessage + "'!jebemti");
+            JSON.parse(err.responseText).userMessage + "'!");
 		    }
 		});
 	}
@@ -207,7 +206,7 @@ function izpisiZnake() {
     success: function (res) {
         //$("#ffmi").html("Body weight");
         if (res.length > 0) {
-        	$("#teza").html("Teza: "+res[0].weight);
+        	$("#teza").html("Teza: "+res[0].weight+" kg");
 			teza =res[0].weight;
 			
         }
@@ -221,7 +220,7 @@ function izpisiZnake() {
     success: function (res) {
         //$("#ffmi").html("Body height");
        if (res.length > 0) {
-       	$("#visina").html("Visina: "+res[0].height);
+       	$("#visina").html("Visina: "+res[0].height+" cm");
 			visina = res[0].height;
 			
 		
@@ -236,7 +235,7 @@ function izpisiZnake() {
     success: function (res) {
         //$("#ffmi").html("Body height");
        if (res.length > 0) {
-       		$("#fat").html("Procent telesne mascobe: "+res[0].systolic);
+       		$("#fat").html("Procent telesne mascobe: "+res[0].systolic+"%");
 			fat = res[0].systolic;
 			
         }
