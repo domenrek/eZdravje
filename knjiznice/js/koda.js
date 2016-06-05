@@ -204,7 +204,6 @@ function izpisiZnake() {
     type: 'GET',
     headers: {"Ehr-Session": sessionId},
     success: function (res) {
-        //$("#ffmi").html("Body weight");
         if (res.length > 0) {
         	$("#teza").html("Teza: "+res[0].weight+" kg");
 			teza =res[0].weight;
@@ -218,7 +217,6 @@ function izpisiZnake() {
     type: 'GET',
     headers: {"Ehr-Session": sessionId},
     success: function (res) {
-        //$("#ffmi").html("Body height");
        if (res.length > 0) {
        	$("#visina").html("Visina: "+res[0].height+" cm");
 			visina = res[0].height;
@@ -233,7 +231,6 @@ function izpisiZnake() {
     type: 'GET',
     headers: {"Ehr-Session": sessionId},
     success: function (res) {
-        //$("#ffmi").html("Body height");
        if (res.length > 0) {
        		$("#fat").html("Procent telesne mascobe: "+res[0].systolic+"%");
 			fat = res[0].systolic;
@@ -251,8 +248,7 @@ function izracunaj() {
 	var lean = teza * (1.0 - (fat / 100));
 	var ffmi = ( lean / 2.2 ) / Math.pow(((visina / 2.54 ) * 0.0254),2) * 2.20462; 
 	mi = ffmi;
-	//lean = Math.round(lean);
-	
+
 	$("#massi").html(Math.round(ffmi * 100)/100);
 	
 	
@@ -299,7 +295,6 @@ function prikaziVreme() {
 	  success : function(parsed_json) {
 	  var location = parsed_json['location']['city'];
 	  var temp_c = parsed_json['current_observation']['temp_c'];
-	  //alert("Current temperature in " + location + " is: " + temp_c);
 	  $('#vreme').append(" "+temp_c+" °C ");
 	  }
 	  });
