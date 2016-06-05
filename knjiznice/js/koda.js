@@ -20,6 +20,15 @@ function getSessionId() {
     });
     return response.responseJSON.sessionId;
 }
+function getSessionId() {
+    var response = $.ajax({
+        type: "POST",
+        url: baseUrl + "/session?username=" + encodeURIComponent(username) +
+                "&password=" + encodeURIComponent(password),
+        async: false
+    });
+    return response.responseJSON.sessionId;
+}
 
 
 /**
@@ -56,7 +65,7 @@ function generirajPodatke() {
 
 
 function kreirajEHRzaBolnika() {
-	var sessionId = getSessionId();
+	sessionId = getSessionId();
 
 	var ime = $("#kreirajIme").val();
 	var priimek = $("#kreirajPriimek").val();
@@ -107,7 +116,7 @@ function kreirajEHRzaBolnika() {
 
 function dodajMeritveVitalnihZnakov() {
 	
-	var sessionId = getSessionId();
+	 sessionId = getSessionId();
 
 	var ehrId = $("#dodajVitalnoEHR").val();
 	var telesnaVisina = $("#dodajVitalnoTelesnaVisina").val();
@@ -167,8 +176,7 @@ function dodajMeritveVitalnihZnakov() {
 //izpise osebne podatke na podlagi ehrId
 
 function prikaziMeritve() {
-	var sessionId = getSessionId();
-	
+
 	
 	var ehrId = $('#izbiraMoznosti').val();
 	$("#podatkii").append("ehrId: "+ehrId+"<br>");
@@ -299,7 +307,7 @@ $.ajax({
   var location = parsed_json['location']['city'];
   var temp_c = parsed_json['current_observation']['temp_c'];
   //alert("Current temperature in " + location + " is: " + temp_c);
-  $('#vreme').append(temp_c);
+  $('#vreme').append(" "+temp_c+" °C ");
   }
   });
 
