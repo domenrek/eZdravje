@@ -20,8 +20,8 @@ function getSessionId() {
         async: false
     });
    // $("#podatkii").html("toj to "+response.responseJSON.sessionId);
-   var odziv = response.responseJSON.sessionId;
-    return odziv;
+   
+   return response.responseJSON.sessionId;
 }
 
 
