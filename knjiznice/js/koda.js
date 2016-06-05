@@ -11,6 +11,7 @@ var password = "ois4fri";
  * enolične ID številke za dostop do funkcionalnosti
  * @return enolični identifikator seje za dostop do funkcionalnosti
  */
+
 function getSessionId() {
     var response = $.ajax({
         type: "POST",
@@ -18,16 +19,9 @@ function getSessionId() {
                 "&password=" + encodeURIComponent(password),
         async: false
     });
-    return response.responseJSON.sessionId;
-}
-function getSessionId() {
-    var response = $.ajax({
-        type: "POST",
-        url: baseUrl + "/session?username=" + encodeURIComponent(username) +
-                "&password=" + encodeURIComponent(password),
-        async: false
-    });
-    return response.responseJSON.sessionId;
+   // $("#podatkii").html("toj to "+response.responseJSON.sessionId);
+   var odziv = response.responseJSON.sessionId;
+    return odziv;
 }
 
 
