@@ -10,6 +10,109 @@
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
+ 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ 	<script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      //google.charts.setOnLoadCallback(drawChart); #87FCFF
+      </script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+
+
+  <style>
+			
+.label {
+	margin-left: auto;
+	
+}
+
+.panel-body {
+	margin-left: auto; 
+	background-color: rgba(0, 255, 255, 0.2);
+	 
+	
+}
+			
+input[type="text"] {
+   width: 60%;
+     }
+.btn {margin-top: 10px;}
+		
+input-group-addon {
+	  width: 60%;
+	}
+			
+.jumbotron {
+    padding: 0.5em 0.6em;
+   }
+	
+#ffmi{
+    border-radius: 25px;
+    border: 2px solid #73ADF1;
+    padding: 20px; 
+    width: 200px;
+    height: 150px; 
+}
+	
+.form-control {
+		width:80%;
+}
+	
+	
+	
+#fmit {
+		margin-left: 5%;
+		font-size: 150%;
+	}
+
+#massi {
+		margin-top: 5%;
+		text-align: center;
+		font-size: 450%;
+		text-decoration: underline;
+	}
+
+#fm{margin-left:10px;}
+	
+.sp{
+		margin-left:15px;
+		margin-top: 15px;
+}
+	
+.foo {
+	  float: left;
+	  width: 20px;
+	  height: 20px;
+	  margin: 5px;
+	  border: 1px solid #ffffff;
+	}
+
+.green {
+  background: #006600;
+}
+
+.yellow {
+  background: #ff8000;
+}
+
+.red{
+  background: #ff0000;
+}
+
+#legend {
+	
+	display:none;
+}		
+
+.skrij{
+	display:none;
+}
+
+		</style>
+  
+  
+  
+  
 </head>
 <body>
 
@@ -22,14 +125,14 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">SI-FIT?</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li><a href="#" onclick="generirajPodatke()")>Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -38,13 +141,78 @@
 
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
-      </div>
-    </div>
-  </div>
+    <div class="jumbotron ">
+  <div class="page-header"><h2>Preveri svojo telesno pripravljenost! <small>EhrScape platforma</small></h2></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6"><b>Kreiraj EHR zapis</b></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="ime">
+						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="priimek">
+						
+						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke</button><span id="kreirajSporocilo"></span>
+				  	</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4"><span><p><b>Izberi osebo</b></p><select class="form-control input-sm" id="izbiraMoznosti"><option value=""></option></select></span>
+			<span><button type="button" class="btn btn-primary btn-xs" onclick="prikaziMeritve();">Izberi</button><button type="button" class="btn btn-primary btn-xs" id="fm" onclick="izpisiZnake()">Prikazi znake</button>
+			<button type="button" class="btn btn-primary btn-xs" id="fm" onclick="izracunaj()">Izracunaj</button></span><p id="podatkii"></p><p id="visina"></p><p id="teza"></p><p id="fat"></p></div>
+			
+			<div class="col-lg-4 col-md-4 col-sm-4">
+					<p id="fmit"><b><i>FFMI:</i></b></p>
+				<div  id="ffmi"><p id="massi"></p></div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos</b> meritve <b>vitalnih znakov</b> bolnika</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="dodajVitalnoEHR" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						
+						<span class="label label-default">Telesna višina</span><div class="input-group"><input id="dodajVitalnoTelesnaVisina" type="text" class="form-control input-mini" placeholder="180"><span class="input-group-addon">cm</span></div>
+						<span class="label label-default">Telesna teža</span><div class="input-group"><input id="dodajVitalnoTelesnaTeza" type="text" class="form-control input-mini" placeholder="80"><span class="input-group-addon">kg</span></div>
+						<span class="label label-default">Procent telesne maščobe</span><div class="input-group"><input id="dodajVitalnoTelesnaMascoba" type="text" class="form-control input-mini" placeholder="12"><span class="input-group-addon">%</span></div>
+
+						<button type="button" class="btn btn-primary btn-xs" onclick="dodajMeritveVitalnihZnakov()">Dodaj meritve</button><span id="dodajMeritveVitalnihZnakovSporocilo"></span>
+				  	</div>
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="row">
+							<button type="button" class="btn btn-primary btn-xs" onclick="drawChart()" style="margin-left: 20px;">Izriši graf</button>
+							<div>	<div class="col-lg-4 col-md-4 col-sm-4" id="graf"></div> <div id="legend"><b>Legenda</b><br><div class="foo yellow sp"></div><p class="sp"> Podpovprečni rezultati<br></p><div class="foo green sp"></div><p class="sp">Povpreči/Odlični rezultati<br></p><div class="foo red sp"></div><p class="sp">Nedosegljivo po naravni poti!<br></p></div>	</div>
+					</div>
+					<button type="button" class="btn btn-primary btn-xs skrij" onclick="prikaziVreme()" id="btnvreme">Prikazi razmere</button>
+					<div class="skrij" id="vreme" ></div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+ </div>
   <!-- KONEC: Vsebina aplikacije -->
+  
 
 </body>
 </html>
